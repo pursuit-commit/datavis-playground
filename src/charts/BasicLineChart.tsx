@@ -6,7 +6,6 @@ function runtimeByYear(data: ITitle[]): { year: number; averageRuntime: number }
     const year = curr.startYear;
     const runtime = curr.runtimeMinutes;
 
-    // if data doesn't have year or runtime, skip
     if (!year || !runtime) {
       return acc;
     }
@@ -41,7 +40,7 @@ export function BasicLineChart({ data }: { data: ITitle[] }) {
         data={averageRuntimeByYear}
       >
         <CartesianGrid />
-        <XAxis type="number" dataKey="year" name="Year" domain={[1915, 2025]} />
+        <XAxis type="number" dataKey="year" name="Year" domain={[1905, 2025]} />
         <YAxis type="number" />
         <Tooltip cursor={{ strokeDasharray: '3 3' }} />
         <Line type="monotone" dataKey="averageRuntime" stroke="#8884d8" />
