@@ -2,7 +2,7 @@ import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Label } fr
 import { ITitle } from "../data";
 import { schemeCategory10 } from 'd3';
 
-function averageRuntimeByGenre(data: ITitle[]) {
+function averageRuntimeByGenre(data: ITitle[]): { genre: string, averageRuntimeByGenre: number, fill: string }[] {
   const genreMap = new Map<string, { genre: string, totalRuntime: number, count: number }>()
   data.forEach((title) => {
     title.genres.forEach((genre) => {

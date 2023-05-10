@@ -1,8 +1,8 @@
 import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line } from 'recharts';
 import { ITitle } from '../data';
 
-function runtimeByYear(data: ITitle[]) {
-  const formattedData = data.reduce((acc, curr) => {
+function runtimeByYear(data: ITitle[]): { year: number; averageRuntime: number }[] {
+  const runtimeByYearObj = data.reduce((acc, curr) => {
     const year = curr.startYear;
     const runtime = curr.runtimeMinutes;
 
@@ -20,16 +20,14 @@ function runtimeByYear(data: ITitle[]) {
     return acc;
   }, {} as { [key: number]: { year: number; count: number; runtime: number } });
 
-  // turn object into array
-  const formattedDataArray = Object.values(formattedData).map(({ year, runtime, count }) => ({
+  return Object.values(runtimeByYearObj).map(({ year, runtime, count }) => ({
     year,
     averageRuntime: runtime / count,
   }));
-  return formattedDataArray;
 }
 
 export function BasicLineChart({ data }: { data: ITitle[] }) {
-  const runtimeByYearArray = runtimeByYear(data);
+  const averageRuntimeByYear = runtimeByYear(data);
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
@@ -40,7 +38,7 @@ export function BasicLineChart({ data }: { data: ITitle[] }) {
           left: 20,
         }}
 
-        data={runtimeByYearArray}
+        data={averageRuntimeByYear}
       >
         <CartesianGrid />
         <XAxis type="number" dataKey="year" name="Year" domain={[1915, 2025]} />
